@@ -9,8 +9,9 @@ use App\Repositories\User\UserRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Services\User\UserServiceImplement;
 use App\Repositories\User\UserRepositoryImplement;
-use App\Repositories\OrderRepositoryInterface;
-use App\Services\OrderServiceInterface;
+
+use App\Services\Order\OrderServiceImplement;
+use App\Repositories\Order\OrderRepositoryImplement;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -25,8 +26,10 @@ class AppServiceProvider extends ServiceProvider
       // ➕ Add this line
     $this->app->bind(UserRepository::class, UserRepositoryImplement::class);
 
-     $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
-    $this->app->bind(OrderServiceInterface::class, OrderService::class);
+     // Bind Order services and repositories
+        $this->app->bind(OrderService::class, OrderServiceImplement::class);
+        $this->app->bind(OrderRepository::class, OrderRepositoryImplement::class);
+
     }
 
     /**

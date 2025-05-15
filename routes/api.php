@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderItemController;
 
 
 /*
@@ -56,6 +57,16 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/{id}', [OrderController::class, 'update']);
             Route::delete('/{id}', [OrderController::class, 'destroy']);
         });
+
+    // Order Item Routes (authenticated users only)
+    Route::prefix('order-items')->group(function () {
+            Route::get('/', [OrderItemController::class, 'index']);
+            Route::get('/{id}', [OrderItemController::class, 'show']);
+            Route::post('/', [OrderItemController::class, 'store']);
+            Route::put('/{id}', [OrderItemController::class, 'update']);
+            Route::delete('/{id}', [OrderItemController::class, 'destroy']);
+        });
+
 
 
 

@@ -19,5 +19,29 @@ class OrderItemRepositoryImplement extends Eloquent implements OrderItemReposito
         $this->model = $model;
     }
 
-    // Write something awesome :)
+     public function getAll()
+    {
+        return $this->model->with(['order', 'product'])->get();
+    }
+
+    public function getById(int $id)
+    {
+        return $this->model->with(['order', 'product'])->find($id);
+    }
+
+    public function createOrderItem(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function updateOrderItem(int $id, array $data): bool
+    {
+        $item = $this->model->find($id);
+        return $item ? $item->update($data) : false;
+    }
+
+     public function deleteOrderItem(int $id): bool
+    {
+        return $this->model->destroy($id);
+    }
 }
