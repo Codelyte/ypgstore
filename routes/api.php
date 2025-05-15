@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartItemController;
+use App\Http\Controllers\Api\OrderController;
 
 
 /*
@@ -46,6 +47,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('{cartItemId}', [CartItemController::class, 'destroy']);
         Route::delete('/', [CartItemController::class, 'empty']);
     });
+
+    // Order Routes (authenticated users only)
+    Route::prefix('orders')->group(function () {
+            Route::get('/', [OrderController::class, 'index']);
+            Route::get('/{id}', [OrderController::class, 'show']);
+            Route::post('/', [OrderController::class, 'store']);
+            Route::put('/{id}', [OrderController::class, 'update']);
+            Route::delete('/{id}', [OrderController::class, 'destroy']);
+        });
+
 
 
     Route::prefix("admin")->middleware('admin')->group(function () {

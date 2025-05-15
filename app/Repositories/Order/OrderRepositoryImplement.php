@@ -20,5 +20,28 @@ class OrderRepositoryImplement extends Eloquent implements OrderRepository{
         $this->model = $model;
     }
 
-    // Write something awesome :)
+   public function all()
+    {
+        return Order::with(['items', 'user'])->get();
+    }
+
+    public function findById(int $id)
+    {
+        return Order::with(['items', 'user'])->find($id);
+    }
+
+    public function createOrder(array $data)
+    {
+        return Order::create($data);
+    }
+
+    public function updateOrder(int $id, array $data): bool
+    {
+        return Order::where('id', $id)->update($data) > 0;
+    }
+
+    public function deleteOrder(int $id): bool
+    {
+        return Order::destroy($id) > 0;
+    }
 }

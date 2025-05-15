@@ -6,5 +6,10 @@ use LaravelEasyRepository\BaseService;
 
 interface OrderService extends BaseService{
 
-    // Write something awesome :)
+     public function getAll();
+    public function getById(int $id);
+    public function createOrder(array $data);
+    public function updateOrder(int $id, array $data);
+    public function deleteOrder(int $id);
+
 }
