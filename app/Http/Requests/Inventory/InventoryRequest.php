@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\OrderItem;
+namespace App\Http\Requests\Inventory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOrderItemRequest extends FormRequest
+class InventoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,11 @@ class UpdateOrderItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'quantity' => 'sometimes|required|integer|min:1',
-            'price' => 'sometimes|required|numeric|min:0',
-            'order_id' => 'sometimes|required|exists:orders,id',
-            'product_id' => 'sometimes|required|exists:products,product_id',
+         return [
+            'product_id' => 'required|exists:products,product_id',
+            'username' => 'required|string|max:190',
+            'password_encrypted' => 'required|string',
+            'extra_data_250kb' => 'nullable|file|max:256', // 256KB max
         ];
     }
 }
