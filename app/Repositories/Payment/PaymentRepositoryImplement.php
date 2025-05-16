@@ -19,5 +19,36 @@ class PaymentRepositoryImplement extends Eloquent implements PaymentRepository{
         $this->model = $model;
     }
 
-    // Write something awesome :)
+    public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function findPayment(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+      public function createPayment(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function updatePayment(int $id, array $data)
+    {
+        $payment = $this->model->find($id);
+        if ($payment) {
+            return $payment->update($data);
+        }
+        return false;
+    }
+
+    public function deletePayment(int $id)
+    {
+        $payment = $this->model->find($id);
+        if ($payment) {
+            return $payment->delete();
+        }
+        return false;
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderItemController;
 use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\PaymentController;
 
 
 /*
@@ -73,8 +74,16 @@ Route::middleware('auth:sanctum')->group(function () {
                 Route::get('/{id}', [InventoryController::class, 'show']);
                 Route::post('/', [InventoryController::class, 'store']);
                 Route::put('/{id}', [InventoryController::class, 'update']);
-                Route::delete('/{id}', [InventoryController::class, 'destroy']); 
+                Route::delete('/{id}', [InventoryController::class, 'destroy']);
             });
+
+            Route::prefix('payments')->group(function () {
+                    Route::get('/', [PaymentController::class, 'index']);
+                    Route::post('/', [PaymentController::class, 'store']);
+                    Route::get('/{id}', [PaymentController::class, 'show']);
+                    Route::put('/{id}', [PaymentController::class, 'update']);
+                    Route::delete('/{id}', [PaymentController::class, 'destroy']);
+                });
 
     Route::prefix("admin")->middleware('admin')->group(function () {
          // Product routes restricted to admin
