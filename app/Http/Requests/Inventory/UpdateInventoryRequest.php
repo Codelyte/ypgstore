@@ -11,7 +11,7 @@ class UpdateInventoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,11 @@ class UpdateInventoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+       return [
+            'product_id' => ['sometimes', 'integer', 'exists:products,product_id'],
+            'username' => ['sometimes', 'string', 'max:255'],
+            'password_encrypted' => ['sometimes', 'string'],
+            'extra_data_250kb' => ['sometimes', 'string', 'max:256000'], // Adjust if stored differently
         ];
     }
 }
