@@ -3,12 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartItemController;
-use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\OrderItemController;
 use App\Http\Controllers\Api\InventoryController;
-use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\OrderItemController;
+use App\Http\Controllers\Api\AccessGrantController;
 
 
 /*
@@ -92,6 +93,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/show/{id}', [ProductController::class, 'show'])->name('admin.show');
         Route::patch('/update/{id}', [ProductController::class, 'update'])->name('admin.update');
         Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('admin.destroy');
+
+        // Access Grant Routes (admin only)
+        Route::prefix('access-grants')->group(function () {
+            Route::get('/', [AccessGrantController::class, 'index']);
+            Route::get('/{id}', [AccessGrantController::class, 'show']);
+            Route::post('/', [AccessGrantController::class, 'store']);
+            Route::put('/{id}', [AccessGrantController::class, 'update']);
+            Route::delete('/{id}', [AccessGrantController::class, 'destroy']);
+        });
     });
 
 

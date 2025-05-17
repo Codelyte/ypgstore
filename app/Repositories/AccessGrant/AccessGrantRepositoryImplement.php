@@ -19,5 +19,40 @@ class AccessGrantRepositoryImplement extends Eloquent implements AccessGrantRepo
         $this->model = $model;
     }
 
-    // Write something awesome :)
+   public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function findAccessGrant(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function createAccessGrant(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function updateAccessGrant(int $id, array $data)
+    {
+        $accessGrant = $this->model->find($id);
+        if (!$accessGrant) {
+            return false;
+        }
+
+        return $accessGrant->update($data);
+    }
+
+     public function deleteAccessGrant(int $id)
+    {
+        $accessGrant = $this->model->find($id);
+        if (!$accessGrant) {
+            return false;
+        }
+
+        return $accessGrant->delete();
+    }
+
+
 }

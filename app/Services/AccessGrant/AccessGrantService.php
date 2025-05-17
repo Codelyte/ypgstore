@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\AccessGrant;
+namespace App\Services\AccessGrant;
 
-use LaravelEasyRepository\Repository;
+use LaravelEasyRepository\BaseService;
 
-interface AccessGrantRepository extends Repository{
+interface AccessGrantService extends BaseService{
 
-   public function getAll();
+    public function getAll();
     public function findAccessGrant(int $id);
     public function createAccessGrant(array $data);
     public function updateAccessGrant(int $id, array $data);
