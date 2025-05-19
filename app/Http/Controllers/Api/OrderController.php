@@ -30,7 +30,7 @@ class OrderController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->orderService->getAll()->toJson();
+        return $this->orderService->getAll();
     }
 
      /**
@@ -43,7 +43,7 @@ class OrderController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        return $this->orderService->getById($id)->toJson();
+        return $this->orderService->getById($id);
     }
 
     /**
@@ -57,7 +57,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request): JsonResponse
     {
         $data = $request->validated();
-        return $this->orderService->createOrder($data)->toJson();
+        return $this->orderService->createOrder($data);
     }
 
      /**

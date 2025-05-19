@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\NewsLetter;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class UnSubscribeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,8 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'sometimes|string|max:160',
-            'description' => 'sometimes|string',
-            'price_ngn' => 'sometimes|integer|min:0',
-            'is_active' => 'sometimes|in:true,false,1,0',
-            'product_image' => 'sometimes|file|image|mimes:jpeg,png,jpg,webp|max:2048', // max: 2MB
+          return [
+             'email' => 'required|email|exists:news_letters,email'
         ];
     }
 }

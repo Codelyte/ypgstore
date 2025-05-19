@@ -15,11 +15,11 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
        return [
-            'id' => $this->id,
+           'id' => $this->product_id,
             'title' => $this->title,
             'description' => $this->description,
             'price_ngn' => $this->price_ngn,
-            'product_image' => $this->product_image,
+            'product_image' => $this->product_image ? asset('storage/' . $this->product_image) : null,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

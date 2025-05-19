@@ -11,7 +11,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
        return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,user_id',
             'total_price' => 'required|numeric|min:0',
             'status' => 'required|string|in:pending,completed,cancelled',
         ];

@@ -57,10 +57,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request): JsonResponse
     {
         $data = $request->validated();
-
+        // Check if the request has a file and assign it to the data array
         if ($request->hasFile('product_image')) {
-            $imagePath = base64_encode(file_get_contents($request->file('product_image')->getRealPath()));
-            $data['product_image'] = $imagePath;
+            $data['product_image'] = $request->file('product_image'); // pass file object
         }
 
         return $this->productService->createProduct($data)->toJson();
@@ -80,8 +79,9 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
+        // Check if the request has a file and assign it to the data array
         if ($request->hasFile('product_image')) {
-            $data['product_image'] = $request->file('product_image');
+            $data['product_image'] = $request->file('product_image'); // pass file object
         }
 
         return $this->productService->updateProduct($id, $data)->toJson();

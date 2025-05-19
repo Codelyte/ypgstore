@@ -76,8 +76,13 @@ class OrderItemServiceImplement extends ServiceApi implements OrderItemService{
     public function createItem(array $data): JsonResponse
     {
         try {
-            $item = $this->orderItemRepository->createOrderItem($data);
-            return response()->json(new OrderItemResource($item), 201);
+        $item = $this->orderItemRepository->createOrderItem($data);
+
+        return response()->json([
+            'message' => 'Order item created successfully',
+            'item' => new OrderItemResource($item)
+        ], 201);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Order item creation failed',

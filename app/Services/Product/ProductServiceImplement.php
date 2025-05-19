@@ -7,6 +7,7 @@ use App\Repositories\Product\ProductRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use App\Http\Resources\ProductResource;
 use LaravelEasyRepository\ServiceApi;
+use Illuminate\Http\UploadedFile;
 
 class ProductServiceImplement extends ServiceApi implements ProductService{
 
@@ -68,9 +69,14 @@ class ProductServiceImplement extends ServiceApi implements ProductService{
     {
         try {
             // Handle file input
-            if (isset($data['product_image']) && $data['product_image']->isValid()) {
-                $data['product_image'] = base64_encode(file_get_contents($data['product_image']->getRealPath()));
-            }
+
+           if (isset($data['product_image']) && $data['product_image'] instanceof UploadedFile && $data['product_image']->isValid()) {
+            // Store file in "public/product_images" folder
+            $path = $data['product_image']->store('product_images', 'public');
+            $data['product_image'] = $path;  // Save file path, not base64
+        }
+
+
 
             $product = $this->productRepository->create($data);
 
@@ -87,15 +93,20 @@ class ProductServiceImplement extends ServiceApi implements ProductService{
      public function updateProduct($id, array $data)
     {
         try {
-            if (isset($data['product_image']) && $data['product_image']->isValid()) {
-                $data['product_image'] = base64_encode(file_get_contents($data['product_image']->getRealPath()));
-            }
 
-            $product = $this->productRepository->update($id, $data);
 
-            return $this->setCode(200)
-                        ->setMessage('Product updated successfully')
-                        ->setData(new ProductResource($product));
+                if (isset($data['product_image']) && $data['product_image'] instanceof UploadedFile && $data['product_image']->isValid()) {
+
+                    $path = $data['product_image']->store('product_images', 'public');
+                    $data['product_image'] = $path;
+                }
+
+
+                $product = $this->productRepository->update($id, $data);
+
+                return $this->setCode(200)
+                            ->setMessage('Product updated successfully')
+                            ->setData(new ProductResource($product));
         } catch (\Exception $e) {
             return $this->setCode(400)
                         ->setMessage('Product update failed')

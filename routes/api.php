@@ -86,7 +86,7 @@ Route::middleware('auth:sanctum')->group(function () {
                     Route::delete('/{id}', [PaymentController::class, 'destroy']);
                 });
 
-    Route::prefix("admin")->middleware('admin')->group(function () {
+    Route::prefix("admin")->middleware('role:admin')->group(function () {
          // Product routes restricted to admin
         Route::get('/index', [ProductController::class, 'index'])->name('admin.index');
         Route::post('/store', [ProductController::class, 'store'])->name('admin.store');

@@ -43,21 +43,21 @@ class OrderItemController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        return $this->orderItemService->getById($id)->toJson();
+        return $this->orderItemService->getById($id);
     }
 
     /**
      * Create Order Item
      *
      * Creates a new order item.
-     *
-     * @param OrderItemRequest $request
-     * @return JsonResponse
-     */
+     * */
+    //  * @param OrderItemRequest $request
+    //  * @return JsonResponse
+
     public function store(OrderItemRequest $request): JsonResponse
     {
         $data = $request->validated();
-        return $this->orderItemService->createItem($data)->toJson();
+        return $this->orderItemService->createItem($data);
     }
 
 

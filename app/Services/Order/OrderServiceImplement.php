@@ -74,8 +74,13 @@ class OrderServiceImplement extends ServiceApi implements OrderService{
     public function createOrder(array $data): JsonResponse
     {
         try {
-            $order = $this->orderRepository->createOrder($data);
-            return response()->json(new OrderResource($order), 201);
+          $order = $this->orderRepository->createOrder($data);
+
+            return response()->json([
+                'message' => 'Order created successfully',
+                'order' => new OrderResource($order),
+            ], 201);
+            
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Order creation failed',
