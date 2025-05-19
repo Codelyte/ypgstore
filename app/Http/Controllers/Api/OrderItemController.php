@@ -30,7 +30,7 @@ class OrderItemController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->orderItemService->getAll()->toJson();
+        return $this->orderItemService->getAll();
     }
 
     /**
